@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/SmoothScroll";
 import { Header } from "@/components/Header";
 
 const inter = Inter({
@@ -32,10 +31,8 @@ export default function RootLayout({
       className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
     >
       <body className="min-h-dvh bg-bg text-text">
-        <SmoothScroll>
-          <Header />
-          {children}
-        </SmoothScroll>
+        <Header />
+        {children}
         <div className="grain" aria-hidden />
       </body>
     </html>

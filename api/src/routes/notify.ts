@@ -38,11 +38,4 @@ router.post('/', notifyLimiter, async (req, res) => {
   return res.json({ ok: true });
 });
 
-router.get('/count', async (req, res) => {
-  const productId = typeof req.query.productId === 'string' ? req.query.productId : null;
-  const col = await getNotifications();
-  const count = await col.countDocuments(productId ? { productId } : {});
-  return res.json({ count });
-});
-
 export default router;

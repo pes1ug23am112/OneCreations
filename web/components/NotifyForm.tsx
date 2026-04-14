@@ -11,7 +11,9 @@ const FormSchema = z.object({
 
 type FormValues = z.infer<typeof FormSchema>;
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const API =
+  process.env.NEXT_PUBLIC_API_URL?.trim() ||
+  (process.env.NODE_ENV === "development" ? "http://localhost:4000" : "");
 
 type Props = {
   productId?: string;
@@ -20,7 +22,7 @@ type Props = {
 };
 
 export function NotifyForm({ productId, productName, variant = "inline" }: Props) {
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "config">("idle");
 
   const {
     register,
@@ -30,6 +32,11 @@ export function NotifyForm({ productId, productName, variant = "inline" }: Props
   } = useForm<FormValues>({ resolver: zodResolver(FormSchema) });
 
   async function onSubmit(values: FormValues) {
+    if (!API) {
+      setStatus("config");
+      return;
+    }
+
     try {
       const res = await fetch(`${API}/notify`, {
         method: "POST",
@@ -54,6 +61,8 @@ export function NotifyForm({ productId, productName, variant = "inline" }: Props
       ? productName
         ? `You're on the list for ${productName}.`
         : "You're on the list."
+      : status === "config"
+        ? "Waitlist is temporarily unavailable. Configure NEXT_PUBLIC_API_URL and try again."
       : status === "error"
         ? "Couldn't reach the server. Try again."
         : null);
@@ -66,19 +75,19 @@ export function NotifyForm({ productId, productName, variant = "inline" }: Props
           placeholder="you@somewhere.com"
           autoComplete="email"
           {...register("email")}
-          className="w-full rounded-md border border-border bg-surface px-4 py-3 text-base text-text outline-none transition-colors placeholder:text-text-dim focus:border-accent"
+          className="w-full rounded-md border border-white/5 bg-[#141415] px-4 py-3 text-base text-white/90 outline-none transition-colors placeholder:text-white/30 focus:border-accent"
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          className="rounded-md bg-accent px-4 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-soft disabled:opacity-60"
+          className="rounded-md bg-white px-4 py-3 text-sm font-medium tracking-tight text-bg transition-colors hover:bg-white/90 disabled:opacity-60"
         >
           {isSubmitting ? "Sending…" : productName ? `Notify me when ${productName} is live` : "Notify me"}
         </button>
         {message && (
           <span
             className={`text-xs ${
-              status === "error" ? "text-red-400" : "text-text-muted"
+              status === "error" ? "text-red-400" : "text-white/50"
             }`}
           >
             {message}
@@ -90,13 +99,13 @@ export function NotifyForm({ productId, productName, variant = "inline" }: Props
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex w-full max-w-md flex-col gap-2" noValidate>
-      <div className="flex items-stretch gap-2 rounded-md border border-border bg-surface p-1">
+      <div className="flex items-stretch gap-2 rounded-md border border-white/5 bg-[#141415] p-1">
         <input
           type="email"
           placeholder="you@somewhere.com"
           autoComplete="email"
           {...register("email")}
-          className="flex-1 bg-transparent px-3 py-2 text-base text-text outline-none placeholder:text-text-dim"
+          className="flex-1 bg-transparent px-3 py-2 text-base text-white/90 outline-none placeholder:text-white/30"
         />
         <button
           type="submit"
@@ -107,7 +116,7 @@ export function NotifyForm({ productId, productName, variant = "inline" }: Props
         </button>
       </div>
       {message && (
-        <span className={`text-xs ${status === "error" ? "text-red-400" : "text-text-muted"}`}>
+        <span className={`text-xs ${status === "error" ? "text-red-400" : "text-white/50"}`}>
           {message}
         </span>
       )}

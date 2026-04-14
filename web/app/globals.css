@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0a0a0c;
-  --color-surface: #14141a;
-  --color-elevated: #1f1f26;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.16);
-  --color-text: #fafafa;
-  --color-text-muted: #8b8b95;
-  --color-text-dim: #5a5a63;
-  --color-accent: #e07a4a;
-  --color-accent-soft: #f0a07a;
-  --color-accent-glow: rgba(224, 122, 74, 0.45);
+  --color-bg: #09090B;
+  --color-surface: #141415;
+  --color-elevated: #1c1c1e;
+  --color-border: rgba(255, 255, 255, 0.05);
+  --color-border-strong: rgba(255, 255, 255, 0.1);
+  --color-text: rgba(255, 255, 255, 0.9);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-text-dim: rgba(255, 255, 255, 0.3);
+  --color-accent: #E5E5E7;
+  --color-accent-soft: #FAFAFA;
+  --color-accent-glow: rgba(255, 255, 255, 0.2);
 
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -36,8 +36,8 @@ body {
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(224, 122, 74, 0.08), transparent 60%),
-    radial-gradient(ellipse 60% 60% at 100% 100%, rgba(80, 80, 120, 0.05), transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 255, 255, 0.04), transparent 60%),
+    radial-gradient(ellipse 60% 60% at 100% 100%, rgba(255, 255, 255, 0.02), transparent 50%);
   background-attachment: fixed;
 }
 
@@ -51,15 +51,154 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.08;
+  opacity: 0.02;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
-.glow-text {
+.magma-divider {
+  position: relative;
+  height: 12px;
+  width: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 14% 40%, rgba(233, 189, 255, 0.96) 0%, rgba(233, 189, 255, 0) 38%),
+    radial-gradient(circle at 74% 58%, rgba(186, 126, 255, 0.92) 0%, rgba(186, 126, 255, 0) 42%),
+    linear-gradient(90deg, #2a0f4d 0%, #5f2ac2 24%, #b879ff 52%, #6a2dd5 76%, #2a0f4d 100%);
+  background-size: 190% 140%, 170% 130%, 260% 100%;
+  background-position: 0% 50%, 100% 50%, 0% 50%;
+  clip-path: polygon(
+    0% 58%, 5% 42%, 10% 54%, 15% 38%, 21% 52%, 27% 36%, 33% 50%, 39% 40%,
+    46% 55%, 53% 39%, 60% 57%, 67% 37%, 74% 54%, 81% 41%, 88% 60%, 94% 45%, 100% 56%,
+    100% 78%, 95% 92%, 89% 74%, 82% 90%, 76% 76%, 69% 92%, 62% 75%, 55% 90%, 48% 76%,
+    41% 90%, 34% 74%, 27% 91%, 20% 73%, 13% 89%, 6% 75%, 0% 87%
+  );
+  filter: saturate(135%);
+  box-shadow:
+    0 0 18px rgba(177, 115, 255, 0.86),
+    0 0 36px rgba(127, 66, 236, 0.68);
+  animation: magma-flow 3s linear infinite, magma-wobble 5.2s ease-in-out infinite;
+}
+
+.magma-divider::before,
+.magma-divider::after {
+  content: "";
+  position: absolute;
+  inset: -65% -18%;
+  pointer-events: none;
+}
+
+.magma-divider::before {
+  background:
+    radial-gradient(circle at 10% 55%, rgba(240, 207, 255, 0.85) 0%, rgba(240, 207, 255, 0) 32%),
+    radial-gradient(circle at 45% 45%, rgba(192, 132, 255, 0.8) 0%, rgba(192, 132, 255, 0) 30%),
+    radial-gradient(circle at 80% 60%, rgba(152, 90, 244, 0.7) 0%, rgba(152, 90, 244, 0) 34%);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  animation: magma-blobs 3.4s linear infinite;
+}
+
+.magma-divider::after {
+  background:
+    radial-gradient(circle at 22% 35%, rgba(206, 150, 255, 0.62) 0%, rgba(206, 150, 255, 0) 28%),
+    radial-gradient(circle at 64% 58%, rgba(169, 108, 249, 0.56) 0%, rgba(169, 108, 249, 0) 30%);
+  mix-blend-mode: screen;
+  opacity: 0.72;
+  animation: magma-blobs 4.6s linear infinite reverse;
+}
+
+@keyframes magma-flow {
+  0% {
+    background-position: 0% 50%, 100% 50%, 0% 50%;
+  }
+  100% {
+    background-position: 190% 50%, -110% 50%, 260% 50%;
+  }
+}
+
+@keyframes magma-wobble {
+  0%,
+  100% {
+    transform: translateY(0px) scaleY(1);
+  }
+  50% {
+    transform: translateY(-0.5px) scaleY(1.12);
+  }
+}
+
+@keyframes magma-blobs {
+  0% {
+    transform: translateX(-12%) skewX(-8deg);
+  }
+  100% {
+    transform: translateX(12%) skewX(8deg);
+  }
+}
+
+.titanium-text {
+  background: linear-gradient(180deg, #C0C0C0 0%, #3A3A3A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.font-object-sans {
+  font-family: "Object Sans", "ObjectSans", "Avenir Next", "Helvetica Neue", var(--font-sans);
+}
+
+.charcoal-halo-text {
+  background-image:
+    linear-gradient(180deg, #ffffff 0%, #f4f4f6 50%, #e5e5e7 100%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25) 0px,
+      rgba(255, 255, 255, 0.25) 1px,
+      rgba(0, 0, 0, 0.08) 1px,
+      rgba(0, 0, 0, 0.08) 3px
+    );
+  background-blend-mode: overlay;
+  background-size: 100% 100%, 8px 8px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  -webkit-text-stroke: 0.6px rgba(196, 150, 255, 0.55);
+  paint-order: stroke fill;
   text-shadow:
-    0 0 30px rgba(224, 122, 74, 0.25),
-    0 0 60px rgba(224, 122, 74, 0.15);
+    0 0 4px rgba(210, 165, 255, 0.55),
+    0 0 10px rgba(180, 130, 255, 0.45),
+    0 0 22px rgba(150, 95, 240, 0.38),
+    0 0 40px rgba(120, 72, 220, 0.3);
+  filter:
+    drop-shadow(0 0 6px rgba(196, 150, 255, 0.5))
+    drop-shadow(0 0 18px rgba(150, 100, 240, 0.35));
+}
+
+.charcoal-halo-subtext {
+  background-image:
+    linear-gradient(180deg, #ffffff 0%, #ececee 100%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2) 0px,
+      rgba(255, 255, 255, 0.2) 1px,
+      rgba(0, 0, 0, 0.06) 1px,
+      rgba(0, 0, 0, 0.06) 3px
+    );
+  background-blend-mode: overlay;
+  background-size: 100% 100%, 7px 7px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  -webkit-text-stroke: 0.45px rgba(190, 145, 255, 0.5);
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 3px rgba(205, 160, 255, 0.45),
+    0 0 8px rgba(170, 120, 250, 0.38),
+    0 0 16px rgba(140, 90, 230, 0.3);
+  filter:
+    drop-shadow(0 0 4px rgba(190, 145, 255, 0.45))
+    drop-shadow(0 0 10px rgba(145, 95, 235, 0.3));
 }
 
 .card-glow {
@@ -72,7 +211,7 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, transparent 30%, rgba(224, 122, 74, 0.4), transparent 70%);
+  background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.2), transparent 70%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

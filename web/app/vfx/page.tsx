@@ -1,5 +1,6 @@
 import { VfxPlayer } from "@/components/VfxPlayer";
-import { VFX } from "@/lib/vfx";
+import { ScrubbedVideo } from "@/components/ScrubbedVideo";
+import { ANIMATIONS } from "@/lib/animations";
 
 export const metadata = {
   title: "VFX — OneCreations",
@@ -9,30 +10,26 @@ export const metadata = {
 
 export default function VfxPage() {
   return (
-    <main className="relative pt-32 pb-24">
-      <section className="mx-auto max-w-7xl px-6">
+    <main className="relative">
+      <ScrubbedVideo src="/assets/videos/Hero.mp4" className="h-screen" />
+
+      <section className="relative mx-auto -mt-[60vh] max-w-7xl px-6 pb-24">
         <div className="flex max-w-3xl flex-col gap-3">
-          <span className="text-xs uppercase tracking-[0.25em] text-text-muted">
+          <span className="text-xs uppercase tracking-[0.25em] text-white/50">
             Reel · VFX
           </span>
-          <h1 className="font-serif text-5xl leading-[1.05] md:text-7xl">
+          <h1 className="font-serif text-5xl leading-[1.05] tracking-tighter md:text-7xl">
             Motion built around the castings.
           </h1>
-          <p className="mt-2 max-w-xl text-base text-text-muted">
+          <p className="mt-2 max-w-xl text-base text-white/50">
             Scale-shift transitions, animated dioramas, and product reveals.
-            Sound's optional — toggle the BGM in the bottom right.
+            Sound is optional — toggle it from the bottom right of the reel.
           </p>
         </div>
 
         <div className="mt-16">
-          <VfxPlayer clips={VFX} />
+          <VfxPlayer clips={ANIMATIONS} />
         </div>
-
-        <p className="mt-12 text-xs text-text-dim">
-          Drop your final exports in <code>web/public/videos/</code> and an
-          ambient track at <code>web/public/audio/ambient.mp3</code>. Then add
-          their paths in <code>web/lib/vfx.ts</code>.
-        </p>
       </section>
     </main>
   );

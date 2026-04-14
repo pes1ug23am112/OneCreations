@@ -14,18 +14,19 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<LenisRef>(null);
 
   useEffect(() => {
+    const lenis = lenisRef.current?.lenis;
     function update(time: number) {
-      lenisRef.current?.lenis?.raf(time * 1000);
+      lenis?.raf(time * 1000);
     }
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
 
     const onScroll = () => ScrollTrigger.update();
-    lenisRef.current?.lenis?.on("scroll", onScroll);
+    lenis?.on("scroll", onScroll);
 
     return () => {
       gsap.ticker.remove(update);
-      lenisRef.current?.lenis?.off("scroll", onScroll);
+      lenis?.off("scroll", onScroll);
     };
   }, []);
 
