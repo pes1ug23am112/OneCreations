@@ -1,7 +1,19 @@
+# Dependencies
 node_modules
+
+# Build outputs
 web/.next
 api/dist
-.DS_Store
+*.tsbuildinfo
+
+# Logs
 *.log
+
+# Environment files
 .env
 .env.local
+.env.*
+!web/.env.local.example
+
+# OS files
+.DS_Store
