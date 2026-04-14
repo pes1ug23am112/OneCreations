@@ -1,0 +1,22 @@
+name: onecreations-api
+region: blr
+services:
+  - name: api
+    github:
+      branch: main
+      deploy_on_push: true
+    source_dir: api
+    build_command: npm ci && npm run build
+    run_command: npm start
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    health_check:
+      http_path: /health
+    envs:
+      - key: MONGODB_URI
+        scope: RUN_TIME
+        type: SECRET
+      - key: CORS_ORIGIN
+        scope: RUN_TIME
+        value: https://onecreations.in,http://localhost:3000
