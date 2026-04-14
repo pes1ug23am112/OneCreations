@@ -59,21 +59,21 @@ export default function Home() {
       </section>
 
       <section className="relative z-10 px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto w-full max-w-7xl">
           <div className="mb-16 flex max-w-2xl flex-col gap-3">
-            <span className="text-xs uppercase tracking-[0.2em] text-white/50">
+            <span className="reveal-up inline-block text-xs uppercase tracking-[0.2em] text-white/50">
               Three things we do
             </span>
-            <h2 className="font-serif text-5xl tracking-tighter md:text-6xl">
+            <h2 className="reveal-up delay-1 font-serif text-5xl tracking-tighter md:text-6xl">
               What OneCreations is, end to end.
             </h2>
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {PILLARS.map((p) => (
+          <div className="pillar-grid grid grid-cols-1 gap-6 md:grid-cols-3">
+            {PILLARS.map((p, i) => (
               <Link
                 key={p.href}
                 href={p.href}
-                className="card-glow group flex flex-col gap-6 rounded-2xl border border-white/5 bg-[#141415] p-8 transition-colors hover:border-white/10"
+                className={`pillar-card reveal-up delay-${i + 2} group flex flex-col gap-6 rounded-2xl border border-white/5 bg-[#141415] p-8`}
               >
                 <span className="text-xs uppercase tracking-[0.2em] text-white/50">
                   {p.eyebrow}
@@ -92,17 +92,17 @@ export default function Home() {
         eyebrow="From the workshop"
         title="Pieces dropping with the store launch."
       >
-        {PRODUCTS_3D.slice(0, 5).map((p) => (
+        {PRODUCTS_3D.slice(0, 5).map((p, i) => (
           <div
             key={p.id}
-            className="w-[78vw] flex-shrink-0 snap-start sm:w-[40vw] lg:w-[26rem]"
+            className={`reveal-right delay-${i + 1} w-[64vw] flex-shrink-0 snap-start sm:w-[30vw] lg:w-[18rem]`}
           >
             <ProductCard product={p} />
           </div>
         ))}
       </HorizontalCarousel>
 
-      <section className="relative z-10 px-6 py-24 md:py-32">
+      <section className="reveal-up relative z-10 px-6 py-24 md:py-32">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-2">
           <div className="flex flex-col justify-center gap-4">
             <span className="text-xs uppercase tracking-[0.2em] text-white/50">
@@ -142,7 +142,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative z-10 px-6 py-32">
+      <section className="reveal-up relative z-10 px-6 py-32">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
           <span className="text-xs uppercase tracking-[0.3em] text-white/50">
             Get on the list

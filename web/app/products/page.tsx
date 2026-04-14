@@ -1,4 +1,4 @@
-import { ProductCard } from "@/components/ProductCard";
+import { ProductsCatalog } from "@/components/ProductsCatalog";
 import { PRODUCTS_3D } from "@/lib/3d-products";
 
 export const metadata = {
@@ -25,11 +25,7 @@ export default function ProductsPage() {
           </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {PRODUCTS_3D.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
+        <ProductsCatalog products={PRODUCTS_3D} />
       </section>
     </main>
   );

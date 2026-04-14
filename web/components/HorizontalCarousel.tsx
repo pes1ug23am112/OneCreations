@@ -23,11 +23,11 @@ export function HorizontalCarousel({ title, eyebrow, children }: Props) {
       <div className="mx-auto flex max-w-7xl items-end justify-between px-6">
         <div className="flex flex-col gap-2">
           {eyebrow && (
-            <span className="text-xs uppercase tracking-[0.2em] text-text-muted">
+            <span className="reveal-up inline-block text-xs uppercase tracking-[0.2em] text-text-muted">
               {eyebrow}
             </span>
           )}
-          <h2 className="font-serif text-4xl md:text-5xl">{title}</h2>
+          <h2 className="reveal-up delay-1 font-serif text-4xl md:text-5xl">{title}</h2>
         </div>
         <div className="hidden gap-2 md:flex">
           <button

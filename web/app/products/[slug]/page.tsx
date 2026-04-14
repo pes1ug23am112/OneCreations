@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { NotifyForm } from "@/components/NotifyForm";
+import { ProductGallery } from "@/components/ProductGallery";
 import { PRODUCTS_3D, getProduct } from "@/lib/3d-products";
 
 export async function generateStaticParams() {
@@ -36,7 +37,6 @@ export default async function ProductDetail({
   const product = getProduct(slug);
   if (!product) notFound();
 
-  const [a, b, c] = product.gradient;
   const others = PRODUCTS_3D.filter((p) => p.id !== product.id).slice(0, 3);
 
   return (
@@ -49,20 +49,18 @@ export default async function ProductDetail({
           ← All products
         </Link>
 
-        <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2">
-          <div
-            className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/5"
-            style={{
-              background: `radial-gradient(circle at 30% 20%, ${c}55, transparent 55%), linear-gradient(135deg, ${a}, ${b})`,
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-bg/40 via-transparent to-transparent" />
-            <div className="absolute left-5 top-5 flex items-center gap-2">
+        <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,420px)_1fr]">
+          <div className="flex flex-col gap-3">
+            <ProductGallery product={product} />
+            <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-white/10 bg-bg/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.15em] text-white/60 backdrop-blur">
                 {STATUS_LABEL[product.status]}
               </span>
               <span className="rounded-full border border-white/10 bg-bg/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.15em] text-white/60 backdrop-blur">
                 {product.scale}
+              </span>
+              <span className="rounded-full border border-white/10 bg-bg/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.15em] text-white/60 backdrop-blur">
+                {product.category}
               </span>
             </div>
           </div>
