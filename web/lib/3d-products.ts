@@ -1,4 +1,5 @@
 // Content source for the /products catalog and per-product pages.
+// Products are static here; MongoDB is used only for waitlist capture.
 //
 // MVP asset workflow (no CMS yet):
 //   1. Drop your .glb models into web/public/assets/models/

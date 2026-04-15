@@ -11,9 +11,7 @@ const FormSchema = z.object({
 
 type FormValues = z.infer<typeof FormSchema>;
 
-const API =
-  process.env.NEXT_PUBLIC_API_URL?.trim() ||
-  (process.env.NODE_ENV === "development" ? "http://localhost:4000" : "");
+const API = process.env.NEXT_PUBLIC_API_URL?.trim() ?? "";
 
 type Props = {
   productId?: string;
@@ -62,7 +60,7 @@ export function NotifyForm({ productId, productName, variant = "inline" }: Props
         ? `You're on the list for ${productName}.`
         : "You're on the list."
       : status === "config"
-        ? "Waitlist is temporarily unavailable. Configure NEXT_PUBLIC_API_URL and try again."
+        ? "Waitlist is temporarily unavailable — NEXT_PUBLIC_API_URL is not set."
       : status === "error"
         ? "Couldn't reach the server. Try again."
         : null);
