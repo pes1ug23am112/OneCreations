@@ -22,6 +22,10 @@ export function MagneticButton({
     const el = ref.current;
     if (!el) return;
 
+    // Fine pointer only — mousemove on a touch device never fires the magnetic
+    // follow, so the listener is dead weight and can confuse screen readers.
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
     function onMove(e: MouseEvent) {
       if (!el) return;
       const rect = el.getBoundingClientRect();

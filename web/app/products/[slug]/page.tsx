@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AddToCartButton } from "@/components/AddToCartButton";
 import { NotifyForm } from "@/components/NotifyForm";
 import { ProductGallery } from "@/components/ProductGallery";
+import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { PRODUCTS_3D, getProduct } from "@/lib/3d-products";
 
 export async function generateStaticParams() {
@@ -40,7 +42,7 @@ export default async function ProductDetail({
   const others = PRODUCTS_3D.filter((p) => p.id !== product.id).slice(0, 3);
 
   return (
-    <main className="relative pt-32 pb-24">
+    <main className="relative pt-32 pb-24 md:pb-24 [@media(max-width:767px)]:pb-32">
       <section className="mx-auto max-w-7xl px-6">
         <Link
           href="/products"
@@ -100,23 +102,30 @@ export default async function ProductDetail({
               )}
             </div>
 
-            <div className="mt-4 rounded-xl border border-white/5 bg-[#141415] p-5">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="text-xs uppercase tracking-[0.2em] text-white/50">
-                  {product.status === "available"
-                    ? "Want a heads-up on the next batch?"
-                    : "Get notified when this drops"}
-                </span>
+            {product.status === "available" ? (
+              <div className="mt-4">
+                <AddToCartButton productId={product.id} />
+                <p className="mt-3 text-xs text-white/30">
+                  Ships in 7–10 days from Bangalore. Hand-finished per order.
+                </p>
               </div>
-              <NotifyForm
-                variant="stacked"
-                productId={product.id}
-                productName={product.title}
-              />
-              <p className="mt-3 text-xs text-white/30">
-                One email when this piece is in stock. Nothing else.
-              </p>
-            </div>
+            ) : (
+              <div id="notify" className="mt-4 rounded-xl border border-white/5 bg-[#141415] p-5 scroll-mt-24">
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-[0.2em] text-white/50">
+                    Get notified when this drops
+                  </span>
+                </div>
+                <NotifyForm
+                  variant="stacked"
+                  productId={product.id}
+                  productName={product.title}
+                />
+                <p className="mt-3 text-xs text-white/30">
+                  One email when this piece is in stock. Nothing else.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -148,6 +157,7 @@ export default async function ProductDetail({
           </section>
         )}
       </section>
+      <StickyBuyBar product={product} />
     </main>
   );
 }

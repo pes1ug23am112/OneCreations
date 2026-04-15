@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { assetUrl } from "@/lib/assets";
 import type { Product3D } from "@/lib/3d-products";
 
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
 };
 
 export function ProductGallery({ product }: Props) {
-  const images = product.images ?? [];
+  const images = (product.images ?? []).map(assetUrl);
   const [active, setActive] = useState(0);
   const [a, b, c] = product.gradient;
 

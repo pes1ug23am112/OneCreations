@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { ScrollRevealInit } from "@/components/ScrollRevealInit";
+import { CartProvider } from "@/lib/cart";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,6 +24,13 @@ export const metadata: Metadata = {
     "OneCreations designs and prints custom 3D pieces for collectors. Shop products, see the VFX work, and follow the diecast drops.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#09090B",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -32,10 +40,12 @@ export default function RootLayout({
       className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
     >
       <body className="min-h-dvh bg-bg text-text">
-        <Header />
-        <ScrollRevealInit />
-        {children}
-        <div className="grain" aria-hidden />
+        <CartProvider>
+          <Header />
+          <ScrollRevealInit />
+          {children}
+          <div className="grain" aria-hidden />
+        </CartProvider>
       </body>
     </html>
   );

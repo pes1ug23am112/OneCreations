@@ -9,6 +9,7 @@ export function CardFlashlight() {
     const el = ref.current;
     const parent = el?.parentElement;
     if (!el || !parent) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     function onMove(e: MouseEvent) {
       if (!el || !parent) return;

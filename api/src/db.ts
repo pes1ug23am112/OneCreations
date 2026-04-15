@@ -10,6 +10,30 @@ export type NotificationDoc = {
   source: string;
 };
 
+export type OrderItem = {
+  productId: string;
+  quantity: number;
+  unitPrice: number; // paise, server-canonical
+};
+
+export type OrderStatus = 'created' | 'paid' | 'failed' | 'refunded';
+
+export type OrderDoc = {
+  razorpayOrderId: string;
+  razorpayPaymentId?: string;
+  items: OrderItem[];
+  amount: number; // paise total
+  currency: 'INR';
+  email: string;
+  status: OrderStatus;
+  notes?: Record<string, string>;
+  createdAt: Date;
+  updatedAt: Date;
+  // Set atomically the first time a receipt is dispatched, so Razorpay webhook
+  // retries (which they will, on any non-2xx) can't double-send the email.
+  receiptSentAt?: Date;
+};
+
 const OPTIONS: MongoClientOptions = {
   maxPoolSize: 10,
   minPoolSize: 0,
@@ -28,6 +52,10 @@ export async function initDb(uri: string): Promise<void> {
   await db
     .collection<NotificationDoc>('notifications')
     .createIndex({ email: 1, productId: 1 }, { unique: true });
+
+  const orders = db.collection<OrderDoc>('orders');
+  await orders.createIndex({ razorpayOrderId: 1 }, { unique: true });
+  await orders.createIndex({ email: 1, createdAt: -1 });
 }
 
 export function getDb(): Db {
@@ -37,6 +65,10 @@ export function getDb(): Db {
 
 export function getNotifications(): Collection<NotificationDoc> {
   return getDb().collection<NotificationDoc>('notifications');
+}
+
+export function getOrders(): Collection<OrderDoc> {
+  return getDb().collection<OrderDoc>('orders');
 }
 
 export async function closeDb(): Promise<void> {

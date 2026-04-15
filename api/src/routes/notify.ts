@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { getNotifications } from '../db.js';
 import { asyncWrap } from '../lib/asyncWrap.js';
+import { emailEnabled, sendWaitlistConfirmation } from '../lib/email.js';
+import { productName } from '../lib/products.js';
 import {
   notifyEmailLimiter,
   notifyIpLimiter,
@@ -33,7 +35,7 @@ router.post(
     const pid = productId ?? null;
 
     const col = getNotifications();
-    await col.updateOne(
+    const result = await col.updateOne(
       { email, productId: pid },
       {
         $setOnInsert: {
@@ -45,6 +47,21 @@ router.post(
       },
       { upsert: true },
     );
+
+    const inserted = result.upsertedCount > 0;
+    if (inserted) {
+      req.log.info({ email, productId: pid, source }, 'notify.insert');
+      if (emailEnabled()) {
+        void sendWaitlistConfirmation({
+          to: email,
+          productName: productName(pid),
+        }).catch((err) => {
+          req.log.error({ err, to: email }, 'notify.email_send_failed');
+        });
+      }
+    } else {
+      req.log.debug({ email, productId: pid }, 'notify.duplicate');
+    }
 
     res.json({ ok: true });
   }),

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MagneticButton } from "@/components/MagneticButton";
 import { ProductCard } from "@/components/ProductCard";
 import { HorizontalCarousel } from "@/components/HorizontalCarousel";
-import { NeuralNoiseClient as NeuralNoise } from "@/components/ui/neural-noise-client";
+import { ShaderAnimation } from "@/components/ui/shader-animation";
 import { PRODUCTS_3D } from "@/lib/3d-products";
 import { ANIMATIONS } from "@/lib/animations";
 
@@ -29,7 +29,7 @@ export default function Home() {
     <main className="relative pt-16">
       <section className="relative flex min-h-[calc(100dvh-4rem)] flex-col items-center justify-center overflow-hidden px-6 py-24 md:px-12">
         <div className="pointer-events-none absolute inset-0 z-0">
-          <NeuralNoise />
+          <ShaderAnimation />
         </div>
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center text-center">
           <h1 className="font-object-sans charcoal-halo-text text-[clamp(1.75rem,8vw,6rem)] font-bold leading-[0.9] tracking-tight">
@@ -180,9 +180,6 @@ export default function Home() {
             <span>© {new Date().getFullYear()} · Made in Bangalore</span>
           </div>
           <div className="flex flex-wrap gap-6">
-            <Link href="/products" className="hover:text-white">3D Products</Link>
-            <Link href="/vfx" className="hover:text-white">VFX</Link>
-            <Link href="/diecast" className="hover:text-white">Diecast</Link>
             <Link href="/login" className="hover:text-white">Sign in</Link>
             <a
               href="https://www.instagram.com/onecreations_media"

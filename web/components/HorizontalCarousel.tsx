@@ -46,11 +46,13 @@ export function HorizontalCarousel({ title, eyebrow, children }: Props) {
           </button>
         </div>
       </div>
-      <div
-        ref={trackRef}
-        className="scrollbar-hide mt-8 flex w-full snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 md:gap-6"
-      >
-        {children}
+      <div className="mobile-edge-fade mt-8">
+        <div
+          ref={trackRef}
+          className="scrollbar-hide flex w-full snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 md:gap-6"
+        >
+          {children}
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Product3D } from "@/lib/3d-products";
+import { assetUrl } from "@/lib/assets";
 import { CardFlashlight } from "@/components/CardFlashlight";
 
 const STATUS_LABEL: Record<Product3D["status"], string> = {
@@ -74,7 +75,7 @@ export function ProductCard({
 }) {
   const [a, b, c] = product.gradient;
   const s = DENSITY_STYLES[density];
-  const heroImage = product.images?.[0];
+  const heroImage = product.images?.[0] ? assetUrl(product.images[0]) : undefined;
   return (
     <Link
       href={`/products/${product.id}`}

@@ -17,11 +17,13 @@ type SortKey =
 
 const DENSITIES: CardDensity[] = [1, 4, 8, 16];
 
+// Mobile always single-column — density only kicks in from sm: (≥640px) and up.
+// The density picker is hidden on mobile, so users on phones never see these.
 const DENSITY_GRID: Record<CardDensity, string> = {
   1: "grid-cols-1",
   4: "grid-cols-1 sm:grid-cols-2",
-  8: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4",
-  16: "grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8",
+  8: "grid-cols-1 sm:grid-cols-3 lg:grid-cols-4",
+  16: "grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8",
 };
 
 const STATUS_ORDER: Record<Product3D["status"], number> = {
@@ -145,7 +147,7 @@ export function ProductsCatalog({ products }: { products: Product3D[] }) {
           </select>
         </label>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="hidden flex-col gap-1.5 md:flex">
           <span className="text-[0.65rem] uppercase tracking-[0.2em] text-white/40">
             View
           </span>

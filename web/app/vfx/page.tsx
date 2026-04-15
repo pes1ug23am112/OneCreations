@@ -1,6 +1,10 @@
 import { VfxPlayer } from "@/components/VfxPlayer";
 import { ScrubbedVideo } from "@/components/ScrubbedVideo";
 import { ANIMATIONS } from "@/lib/animations";
+import { assetUrl } from "@/lib/assets";
+
+const HERO_SRC = assetUrl("/assets/videos/Hero.mp4");
+const CLIPS = ANIMATIONS.map((c) => ({ ...c, assetPath: assetUrl(c.assetPath) }));
 
 export const metadata = {
   title: "VFX — OneCreations",
@@ -11,7 +15,7 @@ export const metadata = {
 export default function VfxPage() {
   return (
     <main className="relative">
-      <ScrubbedVideo src="/assets/videos/Hero.mp4" className="h-screen" />
+      <ScrubbedVideo src={HERO_SRC} className="h-screen" />
 
       <section className="relative mx-auto -mt-[60vh] max-w-7xl px-6 pb-24">
         <div className="flex max-w-3xl flex-col gap-3">
@@ -28,7 +32,7 @@ export default function VfxPage() {
         </div>
 
         <div className="mt-16">
-          <VfxPlayer clips={ANIMATIONS} />
+          <VfxPlayer clips={CLIPS} />
         </div>
       </section>
     </main>

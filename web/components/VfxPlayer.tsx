@@ -43,7 +43,7 @@ export function VfxPlayer({ clips }: { clips: AnimationClip[] }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 grid place-items-center bg-bg/85 p-6 backdrop-blur-md"
+            className="fixed inset-0 z-50 grid place-items-center bg-bg/85 p-3 backdrop-blur-md sm:p-6"
             onClick={() => setActive(null)}
           >
             <motion.div
@@ -80,9 +80,10 @@ export function VfxPlayer({ clips }: { clips: AnimationClip[] }) {
                 </div>
                 <button
                   onClick={() => setActive(null)}
-                  className="rounded-md border border-white/10 px-3 py-1.5 text-xs uppercase tracking-[0.15em] text-white/60 hover:text-white"
+                  aria-label="Close video"
+                  className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-md border border-white/10 text-lg text-white/70 transition-colors hover:border-white/30 hover:text-white"
                 >
-                  Close
+                  <span aria-hidden>✕</span>
                 </button>
               </div>
             </motion.div>
