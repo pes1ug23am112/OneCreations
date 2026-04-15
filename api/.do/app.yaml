@@ -14,9 +14,33 @@ services:
     health_check:
       http_path: /health
     envs:
+      - key: NODE_ENV
+        scope: RUN_TIME
+        value: production
+      - key: PORT
+        scope: RUN_TIME
+        value: "8080"
       - key: MONGODB_URI
         scope: RUN_TIME
         type: SECRET
       - key: CORS_ORIGIN
         scope: RUN_TIME
-        value: https://onecreations.in,http://localhost:3000
+        value: https://onecreations.in,https://www.onecreations.in
+      - key: LOG_LEVEL
+        scope: RUN_TIME
+        value: info
+      - key: RESEND_API_KEY
+        scope: RUN_TIME
+        type: SECRET
+      - key: EMAIL_FROM
+        scope: RUN_TIME
+        value: OneCreations <hello@onecreations.in>
+      - key: RAZORPAY_KEY_ID
+        scope: RUN_TIME
+        type: SECRET
+      - key: RAZORPAY_KEY_SECRET
+        scope: RUN_TIME
+        type: SECRET
+      - key: RAZORPAY_WEBHOOK_SECRET
+        scope: RUN_TIME
+        type: SECRET
