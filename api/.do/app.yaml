@@ -3,6 +3,7 @@ region: blr
 services:
   - name: api
     github:
+      repo: pes1ug23am112/OneCreations
       branch: main
       deploy_on_push: true
     source_dir: api

@@ -14,12 +14,12 @@ export const PRODUCTS: Record<string, ProductPricing> = {
   'rooftop-bangalore': {
     name: 'Rooftop — Bangalore',
     unitPrice: 380_000,
-    status: 'available',
+    status: 'preorder',
   },
   'display-stand-trio': {
     name: 'Five-Tier Display Stand',
     unitPrice: 40_000,
-    status: 'available',
+    status: 'preorder',
   },
   'kei-garage': {
     name: 'Kei Garage — Nishinomiya',

@@ -95,7 +95,7 @@ export const PRODUCTS_3D: Product3D[] = [
     tagline: "Local skyline as a backdrop for your build.",
     description:
       "Hand-detailed rooftop scene — water tanks, satellite dishes, the city's signature concrete texture. A love letter to the place every OneCreations piece is printed in.",
-    status: "available",
+    status: "preorder",
     price: "₹3,800",
     priceValue: 3800,
     category: "Art & Decor",
@@ -125,7 +125,7 @@ export const PRODUCTS_3D: Product3D[] = [
     tagline: "Five-piece stepped display set, ready to ship.",
     description:
       "Five stepped 3D-printed risers that let you arrange 1:64 diecasts into a tiered scene. Hand-finished in matte red or blue. Set of 5 pieces — ships flat-packed from Bangalore.",
-    status: "available",
+    status: "preorder",
     price: "₹400",
     priceValue: 400,
     category: "Home & Garden",
